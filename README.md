@@ -12,4 +12,4 @@ Simply clone the repository into the plugins directory:
 
 To run:
 
-    rbenv reinstallgems fromversion toversion
+    rbenv reinstallgems fromversion
