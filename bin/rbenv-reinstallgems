@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+RBENV_ROOT_ERROR_MESSAGE=<< EOF
+The command "rbenv root" is not responding
+please verify rbenv is installed correctly
+EOF
+
+MY_RBENV_ROOT=`rbenv root`
+
+if [ -z ${MY_RBENV_ROOT} ]; then
+  echo "${RBENV_ROOT_ERROR_MESSAGE}" >&2
+  exit 1
+fi
+
+PLUGINS_DIR=${MY_RBENV_ROOT}/plugins
+PLUGIN_NAME=$(basename $0)
+
+source "${PLUGINS_DIR}/${PLUGIN_NAME}/lib/rbenvhelpers"
+
+function usage() {
+  THIS_FILE=`basename $0`
+  echo -e "$THIS_FILE <ruby version>"
+  exit 1
+}
+
+FIRST_VERSION=$1
+
+if [ -z $1 ]; then
+  usage
+fi
+
+SOURCE_GEMS_DIR="/Users/james/.rbenv/versions/${FIRST_VERSION}/lib/ruby/gems/2.0.0/gems"
+TARGET_GEMS_DIR="/tmp"
+TARGET_GEMFILE="$TARGET_GEMS_DIR/Gemfile"
+
+if [ ! -d $SOURCE_GEMS_DIR ]; then
+  echo "Not a directory ${SOURCE_GEMS_DIR}"
+  exit 1
+fi
+
+declare -a GEMS=`ls ${SOURCE_GEMS_DIR}`
+
+DATE=`date "+%Y-%m-%d-%H-%M-%S"`
+
+echo $GEMS
+if [ -f $TARGET_GEMFILE ]; then
+  # echo "Gemfile exists. Backing up and removing."
+  # cp $TARGET_GEMFILE $TARGET_GEMFILE.${DATE}
+  # rm $TARGET_GEMFILE
+  # touch $TARGET_GEMFILE
+fi
+
+echo "source 'https://rubygems.org'" >> $TARGET_GEMFILE
+
+#Building the simples workable gemfile.
+for GEM in $GEMS; do
+  discover_gem_name_from_ls $GEM >> $TARGET_GEMFILE
+done
+
+echo "Go ahead and install your bundle from the Gemfile ${TARGET_GEMFILE}"
