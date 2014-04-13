@@ -19,7 +19,8 @@ source "${PLUGINS_DIR}/${PLUGIN_NAME}/lib/rbenvhelpers"
 
 function usage() {
   THIS_FILE=`basename $0`
-  echo -e "$THIS_FILE <ruby version>"
+  echo "$THIS_FILE <ruby version>"
+  echo "Consider checking rbenv versions for a version number."
   exit 1
 }
 
