@@ -43,12 +43,11 @@ declare -a GEMS=`ls ${SOURCE_GEMS_DIR}`
 
 DATE=`date "+%Y-%m-%d-%H-%M-%S"`
 
-echo $GEMS
 if [ -f $TARGET_GEMFILE ]; then
-  # echo "Gemfile exists. Backing up and removing."
-  # cp $TARGET_GEMFILE $TARGET_GEMFILE.${DATE}
-  # rm $TARGET_GEMFILE
-  # touch $TARGET_GEMFILE
+  echo "Gemfile exists. Backing up and removing."
+  cp $TARGET_GEMFILE $TARGET_GEMFILE.${DATE}
+  rm $TARGET_GEMFILE
+  touch $TARGET_GEMFILE
 fi
 
 echo "source 'https://rubygems.org'" >> $TARGET_GEMFILE
