@@ -54,7 +54,7 @@ echo "source 'https://rubygems.org'" >> $TARGET_GEMFILE
 
 #Building the simples workable gemfile.
 for GEM in $GEMS; do
-  discover_gem_name_from_ls $GEM >> $TARGET_GEMFILE
+  build_bundler_line $GEM >> $TARGET_GEMFILE
 done
 
 echo "Go ahead and install your bundle from the Gemfile ${TARGET_GEMFILE}"
