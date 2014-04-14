@@ -30,7 +30,7 @@ if [ -z $1 ]; then
   usage
 fi
 
-SOURCE_GEMS_DIR="/Users/james/.rbenv/versions/${FIRST_VERSION}/lib/ruby/gems/2.0.0/gems"
+SOURCE_GEMS_DIR="${MY_RBENV_ROOT}/versions/${FIRST_VERSION}/lib/ruby/gems/2.0.0/gems"
 TARGET_GEMS_DIR="/tmp"
 TARGET_GEMFILE="$TARGET_GEMS_DIR/Gemfile"
 
